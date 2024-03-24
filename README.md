@@ -43,7 +43,8 @@ Captive Portal представляет собой фишинговую стра
 
 ![image](https://github.com/Puerh0x1/TeaVin/assets/162372951/0dbb65fa-774c-41ab-af77-f4bb55d1f17c)
 
-![image](https://github.com/Puerh0x1/TeaVin/assets/162372951/2ec968ee-962f-470f-baf0-4ef3bcceb18e)
+![image](https://github.com/Puerh0x1/TeaVin/assets/162372951/ca91cad3-4b96-4427-afe3-7dd92d847c6c)
+
 
 Control Panel также находится на `/control`, а сам Captive Portal - на `192.168.4.1`.
 
