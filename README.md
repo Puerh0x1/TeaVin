@@ -46,6 +46,16 @@ Captive Portal представляет собой фишинговую стра
 ![image](https://github.com/Puerh0x1/TeaVin/assets/162372951/ca91cad3-4b96-4427-afe3-7dd92d847c6c)
 
 
+
+
+
+
 Control Panel также находится на `/control`, а сам Captive Portal - на `192.168.4.1`.
 
 ---
+
+Прошивка:
+
+Мои настройки для прошивки модуля в ARDUINO IDE:
+
+![image](https://github.com/Puerh0x1/TeaVin/assets/162372951/53c4d524-1b1a-4e94-a0bc-41cf61a58428)
