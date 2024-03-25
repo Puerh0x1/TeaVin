@@ -59,3 +59,8 @@ Control Panel также находится на `/control`, а сам Captive P
 Мои настройки для прошивки модуля в ARDUINO IDE:
 
 ![image](https://github.com/Puerh0x1/TeaVin/assets/162372951/53c4d524-1b1a-4e94-a0bc-41cf61a58428)
+
+Ссылка на менеджер плат:
+`https://dl.espressif.com/dl/package_esp32_index.json`
+
+![image](https://github.com/Puerh0x1/TeaVin/assets/162372951/f84afe0c-00c5-4293-94fa-560288e4f532)
