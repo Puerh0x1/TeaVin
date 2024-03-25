@@ -44,9 +44,11 @@ Captive Portal представляет собой фишинговую стра
 
 `http://192.168.4.1/logs`
 
-![image](https://github.com/Puerh0x1/TeaVin/assets/162372951/0dbb65fa-774c-41ab-af77-f4bb55d1f17c)
+![image](https://github.com/Puerh0x1/TeaVin/assets/162372951/3eb2e5d3-ce99-4df5-b27a-4d6623a99483)
 
-![image](https://github.com/Puerh0x1/TeaVin/assets/162372951/ca91cad3-4b96-4427-afe3-7dd92d847c6c)
+
+![image](https://github.com/Puerh0x1/TeaVin/assets/162372951/92e3b98c-4876-4768-b639-6a414d3265b4)
+
 
 
 
