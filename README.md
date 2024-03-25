@@ -32,9 +32,7 @@ Captive Portal представляет собой фишинговую стра
 
 После подключения к сети вы можете найти панель управления по адресу [http://192.168.4.1/control](http://192.168.4.1/control). Все страницы адаптированы под мобильные устройства.
 
-![image](https://github.com/Puerh0x1/TeaVin/assets/162372951/da53402e-d433-4506-84db-e76fa119b534)
-
-![image](https://github.com/Puerh0x1/TeaVin/assets/162372951/edd5279f-592e-42aa-9800-fb6b5ceb4d0e)
+![image](https://github.com/Puerh0x1/TeaVin/assets/162372951/2b563db9-51d0-4d27-8ab1-642649b88c20)
 
 После ввода SSID (названия сети) - ждем 1 секунду, и будет создана сеть с этим названием, а текущая сеть отключится.
 
@@ -44,15 +42,9 @@ Captive Portal представляет собой фишинговую стра
 
 `http://192.168.4.1/logs`
 
-![image](https://github.com/Puerh0x1/TeaVin/assets/162372951/3eb2e5d3-ce99-4df5-b27a-4d6623a99483)
+![image](https://github.com/Puerh0x1/TeaVin/assets/162372951/ca1a98e3-f682-4804-a9a4-562b7f0e60d2)
 
-
-![image](https://github.com/Puerh0x1/TeaVin/assets/162372951/92e3b98c-4876-4768-b639-6a414d3265b4)
-
-
-
-
-
+![image](https://github.com/Puerh0x1/TeaVin/assets/162372951/f8386562-4b24-47b6-b27a-160a58860b50)
 
 
 Control Panel также находится на `/control`, а сам Captive Portal - на `192.168.4.1`.
